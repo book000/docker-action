@@ -1,0 +1,28 @@
+name: Update dist
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  update-dist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update dist
+        run: |
+          yarn package
+
+      - name: Commit changes
+        run: |
+          git add dist
+          git commit -m "Update dist" && git push || echo "No changes to commit" || true

@@ -11,14 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          yarn install
-      - run: |
+      - name: Install dependencies
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Run all
+        run: |
           yarn run all
+
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test
+        uses: ./
         with:
           milliseconds: 1000

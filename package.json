@@ -9,7 +9,9 @@
     "format": "prettier --write \"**/*.ts\"",
     "format-check": "prettier --check \"**/*.ts\"",
     "lint": "eslint src/**/*.ts",
-    "package": "ncc build --source-map --license licenses.txt",
+    "clean": "rimraf lib dist",
+    "packing": "ncc build --source-map --license licenses.txt",
+    "package": "yarn run clean && yarn run build && yarn run packing",
     "test": "jest",
     "all": "yarn run build && yarn run format && yarn run lint && yarn run package && yarn test"
   },
